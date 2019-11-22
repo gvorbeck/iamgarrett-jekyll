@@ -1,0 +1,212 @@
+---
+---
+
+// BROWSER RESET
+@import "reset";
+@import "variables";
+@import "mixins";
+@import "functions";
+
+.home {
+    font-family: map-get($fonts, sans);
+    font-size: 1rem;
+    display: grid;
+    grid-template: repeat(3, auto) / repeat(12, 1fr);
+    grid-row-gap: 2rem;
+
+    strong {
+        font-weight: 700;
+    }
+
+    &__header {
+        grid-column: 1 / 13;
+        grid-row: 1 / 2;
+        background-color: map-get($shades, dark);
+        color: #FFFFFF;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        box-shadow: map-get($shadows, 2);
+    }
+
+    &__title {
+        $dimension: #{rem(80px)};
+        font-family: map-get($fonts, serif);
+        font-size: 2.5rem;
+        font-weight: 700;
+        position: relative;
+        text-align: center;
+        line-height: $dimension;
+        margin-top: 1rem;
+        z-index: 1;
+
+        &::after {
+            @include pseudo;
+            width: $dimension;
+            height: $dimension;
+            background-color: map-get($colors, yellow);
+            border-radius: 50%;
+            top: 0;
+            left: calc(50% - #{$dimension} / 2);
+            z-index: -1;
+        }
+    }
+
+    &__content {
+        grid-column: 1 / 13;
+        grid-row: 2 / 3;
+    }
+
+    &__footer {
+        grid-column: 1 / 13;
+        grid-row: 3 / 4;
+    }
+}
+
+.nav {
+
+    &__list {
+        display: flex;
+        justify-content: space-between;
+        width: 75vw;
+        margin: 1.5rem auto;
+    }
+
+    &__link {
+        color: #FFFFFF;
+        text-decoration: none;
+    }
+}
+
+.links {
+
+    &__list {
+        display: flex;
+    }
+
+    &__item {
+        width: 20vw;
+        height: 20vw;
+        text-indent: -9999px;
+
+        @each $color, $hex in $colors {
+            $i: index($colors, $color $hex);
+            &:nth-child(5n + #{$i}) {
+                background-color: $hex;
+            }
+        }
+    }
+}
+
+.content {
+
+    & + .content {
+        margin-top: 2rem;
+    }
+
+    &__title {
+        margin: 0 0 0 1rem;
+        font-family: map-get($fonts, serif);
+        font-weight: 700;
+        font-size: 2rem;
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+
+        .content:nth-child(even) & {
+            // flex-direction: row-reverse;
+        }
+    }
+
+    &__sidebar {
+        padding: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        @each $color, $hex in $colors {
+            $i: index($colors, $color $hex);
+            &:nth-child(5n + #{$i}) {
+                background-color: $hex;
+            }
+        }
+    }
+
+    &__thumb {
+        width: 25%;
+        border-radius: 50%;
+        background-color: map-get($colors, purple);
+        margin-right: 2rem;
+    }
+
+    &__subtitle {
+        line-height: 25%;
+        font-family: map-get($fonts, serif);
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    &__desc {
+        margin-top: 1rem;
+        line-height: 1.25;
+    }
+
+    &__heading {
+        background-color: map-get($colors, yellow);
+        color: #FFFFFF;
+        font-family: map-get($fonts, serif);
+        font-size: 1.5rem;
+        line-height: 2;
+        padding: 0 1rem;
+    }
+
+    &__subcontent {
+        padding: .5rem;
+        line-height: 1.5;
+
+        li{
+            padding: .5rem;
+
+            &:nth-child(odd) {
+                background-color: map-get($shades, light);
+            }
+        }
+
+        .work-history {
+
+            li {
+                background-color: #FFFFFF;
+                padding: 0;
+                border-top: .5rem solid map-get($shades, dark);
+
+                & + li {
+                    margin-top: 1rem;
+                }
+            }
+
+            div {
+                display: flex;
+                justify-content: space-between;
+                padding: .5rem;
+
+                &:nth-child(odd) {
+                    background-color: map-get($shades, light);
+                }
+            }
+
+            p {
+                background-color: map-get($shades, light);
+                padding: .5rem;
+            }
+        }
+
+        dt {
+            font-weight: 700;
+        }
+
+        dd {
+        }
+    }
+}

@@ -1,0 +1,21 @@
+<header class="home__header">
+    <h1 class="home__title">{{ site.title}}</h1>
+    <nav class="nav">
+        <ul class="nav__list">
+            {% for section in page.contents %}
+                <li class="nav__item">
+                    <a class="nav__link" href="#iamg-{{ section.title | downcase }}" title="{{ section.title }}">{{ section.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    <nav class="links">
+        <ul class="links__list">
+            {% for link in page.links %}
+                <li class="links__item">
+                    <a class="links__external {{ link.title | downcase | remove: '.' }}" href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+</header>

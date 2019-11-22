@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include head.html %}
+    <body class="home">
+        {% include header.html %}
+        <main class="home__content">
+            {% for section in page.contents %}
+                <article id="iamg-{{ section.title | downcase }}" class="content">
+                    <h1 class="content__title">{{ section.title }}</h1>
+                    <section class="content__container">
+                        <aside class="content__sidebar">
+                            <img class="content__thumb" alt="{{ section.subtitle }}" src="/assets/images/icons/{{ section.img }}">
+                            <h2 class="content__subtitle">{{ section.subtitle }}</h2>
+                            <div class="content__desc">{{ section.desc | markdownify }}</div>
+                        </aside>
+                        <div class="content__main">
+                            {% for subsection in section.subsections %}
+                                <h3 class="content__heading">{{ subsection.title }}</h3>
+                                <div class="content__subcontent">
+                                    {% assign thepost = site.posts | where:"title", subsection.title %}
+                                    {% for post in thepost %}
+                                        {% if section.title == "Portfolio" %}
+                                            <div class="browser">
+                                                <div class="browser__dots"></div>
+                                                <div class="browser__url">{{ post.address }}</div>
+                                            </div>
+                                            <a class="content__link" target="_blank" title="{{ post.title }}" href="https://{{ post.address }}">
+                                                <img class="content__image" src="/assets/images/portfolio/{{ post.image }}" alt="{{ post.title }}">
+                                            </a>
+                                        {% endif %}
+                                        {{ post.content }}
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </section>
+                </article>
+            {% endfor %}
+        </main>
+        {% include footer.html %}
+    </body>
+</html>
