@@ -12,7 +12,7 @@ contents:
   - title: Work History
   - title: Education
 - title: Portfolio
-  subtitle: "What I'm Working On"
+  subtitle: "My Work"
   img: analytics.png
   url: "#iamg-portfolio"
   desc: Here is a selection of some of the latest projects I have recently worked on. Only projects on which I served as the primary developer and are publicly available are listed here.
@@ -22,7 +22,7 @@ contents:
   - title: Krishanti and Garrett
   - title: IBM HMC Mobile
 - title: About
-  subtitle: "The Right Tools for The Job"
+  subtitle: "The Right Tools"
   img: settings.png
   url: "#iamg-about"
   desc: Making sure each project is built using the best tools for the job is essential. Work smart, not hard!

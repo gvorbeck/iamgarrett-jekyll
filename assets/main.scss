@@ -13,6 +13,7 @@
     display: grid;
     grid-template: repeat(3, auto) / repeat(12, 1fr);
     grid-row-gap: 2rem;
+    background-color: map-get($shades, light);
 
     strong {
         font-weight: 700;
@@ -60,6 +61,7 @@
     &__footer {
         grid-column: 1 / 13;
         grid-row: 3 / 4;
+        text-align: center;
     }
 }
 
@@ -99,6 +101,7 @@
 }
 
 .content {
+    border-bottom: 1rem solid map-get($colors, yellow);
 
     & + .content {
         margin-top: 2rem;
@@ -114,6 +117,7 @@
     &__container {
         display: flex;
         flex-direction: column;
+        background-color: #FFFFFF;
 
         .content:nth-child(even) & {
             // flex-direction: row-reverse;
@@ -128,8 +132,27 @@
 
         @each $color, $hex in $colors {
             $i: index($colors, $color $hex);
-            &:nth-child(5n + #{$i}) {
+
+            // Chooses a good color based on current background.
+            $pairs: map-get((
+                brown: purple,
+                pink: yellow,
+                purple: brown,
+                red: pink,
+                yellow: brown
+            ), $color);
+
+            .content:nth-child(5n + #{$i}) & {
                 background-color: $hex;
+
+                // White text on dark backgrounds.
+                @if (lightness($hex) < 50) {
+                    color: #FFFFFF;
+                }
+
+                & .content__thumb {
+                    background-color: map-get($colors, $pairs);
+                }
             }
         }
     }
@@ -137,15 +160,15 @@
     &__thumb {
         width: 25%;
         border-radius: 50%;
-        background-color: map-get($colors, purple);
         margin-right: 2rem;
     }
 
     &__subtitle {
-        line-height: 25%;
+        line-height: 1.25;
         font-family: map-get($fonts, serif);
         font-size: 1.5rem;
         font-weight: 700;
+        max-width: 60%;
     }
 
     &__desc {
@@ -174,7 +197,8 @@
             }
         }
 
-        .work-history {
+        .work-history,
+        .education {
 
             li {
                 background-color: #FFFFFF;
@@ -207,6 +231,62 @@
         }
 
         dd {
+        }
+
+        .browser {
+            $spacing: .25rem;
+            background-color: #e2e1e2;
+            padding: $spacing;
+            border-radius: $spacing;
+            margin: 0 0 ($spacing * 4);
+            text-align: center;
+            position: relative;
+
+            &__dots {
+                position: absolute;
+                background-color: #ff4443;
+                top: ($spacing * 6 / 2 + $spacing);
+                left: $spacing * 2;
+
+                &,
+                &::before,
+                &::after {
+                    width: $spacing * 2;
+                    height: $spacing * 2;
+                    border-radius: 50%;
+                }
+
+                &::before,
+                &::after {
+                    @include pseudo;
+                }
+
+                &::before {
+                    background-color: #ffbe00;
+                    left: $spacing * 4;
+                }
+
+                &::after {
+                    background-color: #01d545;
+                    left: $spacing * 8;
+                }
+            }
+
+            &__url {
+                background-color: #f3f3f3;
+                display: inline-block;
+                line-height: $spacing * 6;
+                height: $spacing * 6;
+                padding: $spacing ($spacing * 2);
+                margin: 0 0 ($spacing);
+                min-width: 60%;
+                border-radius: $spacing;
+            }
+
+            img {
+                width: 100%;
+                display: block;
+            }
         }
     }
 }
